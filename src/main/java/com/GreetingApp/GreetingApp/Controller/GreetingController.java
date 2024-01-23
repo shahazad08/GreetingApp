@@ -1,6 +1,9 @@
 package com.GreetingApp.GreetingApp.Controller;
 
+import com.GreetingApp.GreetingApp.Service.GreetingService;
+import com.GreetingApp.GreetingApp.Service.IGreetingService;
 import com.GreetingApp.GreetingApp.dto.Greeting;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +26,15 @@ public class GreetingController {
         @GetMapping("greeting/{name}")
         public Greeting greetings(@PathVariable String name) {
             return new Greeting(counter.incrementAndGet(), String.format(template, name));
+        }
+
+@Autowired
+    IGreetingService greetingService;
+
+
+        @GetMapping("greeting/service")
+    public Greeting greeting() {
+            return greetingService.greetingMessage();
         }
     }
 
