@@ -64,6 +64,11 @@ public class GreetingController {
     public User updateOrCreate(@RequestBody User user, @PathVariable Long id) {
         return greetingService.updateOrCreate(user, id);
     }
+
+    @DeleteMapping("greeting/{id}")
+    public void delete(@PathVariable Long id) {
+         greetingService.delete(id);
+    }
 }
 
 

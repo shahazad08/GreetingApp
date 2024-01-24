@@ -19,5 +19,7 @@ public interface IGreetingService {
 
     User updateOrCreate(@RequestBody User newItem, @PathVariable Long id);
 
+    public void delete(@PathVariable Long id);
+
 
 }
