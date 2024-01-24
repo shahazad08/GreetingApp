@@ -1,20 +1,28 @@
 package com.GreetingApp.GreetingApp.Controller;
 
+import com.GreetingApp.GreetingApp.Repository.GreetingRepository;
 import com.GreetingApp.GreetingApp.Service.GreetingService;
 import com.GreetingApp.GreetingApp.Service.IGreetingService;
 import com.GreetingApp.GreetingApp.dto.Greeting;
 import com.GreetingApp.GreetingApp.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class GreetingController {
-
+    public GreetingController(GreetingRepository repository) {
+        this.repository = repository;
+    }
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
+
+    GreetingRepository repository;
 
     @GetMapping(value = {"/greeting", "/greeting/", "/greeting/home"})
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -35,10 +43,17 @@ public class GreetingController {
         return greetingService.greetingMessage();
     }
 
-    @PostMapping("greeting")
-        public String greetingMessage(@RequestBody User user) {
-            return "Hello "+user.getFirstName()+" "+user.getLastName();
+    @PostMapping("/greeting")
+        public  ResponseEntity<User> greetingMessageWithRepo(@RequestBody User user) {
 
+        User savedUser = repository.save(user);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedUser.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
 

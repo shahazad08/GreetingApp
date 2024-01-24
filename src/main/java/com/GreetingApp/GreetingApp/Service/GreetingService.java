@@ -16,4 +16,5 @@ public class GreetingService implements IGreetingService {
         return new Greeting(counter.incrementAndGet(),String.format(template));
     }
 
+
 }
