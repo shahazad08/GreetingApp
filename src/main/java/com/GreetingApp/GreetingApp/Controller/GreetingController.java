@@ -53,7 +53,13 @@ public class GreetingController {
         User getById(@PathVariable Long id) {
             return greetingService.getById(id);
         }
-    }
+
+        @GetMapping("/greeting/all")
+        List<User> getAllUsers() {
+            return greetingService.getAllUsers();
+            }
+        }
+
 
 
 

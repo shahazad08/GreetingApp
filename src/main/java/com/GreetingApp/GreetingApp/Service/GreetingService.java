@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
@@ -44,5 +45,11 @@ public class GreetingService implements IGreetingService {
         return greetingRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException(id));
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        return greetingRepository.findAll();
+    }
+
 
 }
