@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
@@ -45,20 +46,17 @@ public class GreetingController {
 
     @PostMapping("/greeting")
         public  ResponseEntity<User> greetingMessageWithRepo(@RequestBody User user) {
+            return greetingService.greetingMessageWithRepo(user);
+    }
 
-        User savedUser = repository.save(user);
-
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedUser.getId())
-                .toUri();
-
-        return ResponseEntity.created(location).build();
+    @GetMapping("/greetingById/{id}")
+        User getById(@PathVariable Long id) {
+            return greetingService.getById(id);
+        }
     }
 
 
 
-}
 
 
 
