@@ -45,20 +45,27 @@ public class GreetingController {
     }
 
     @PostMapping("/greeting")
-        public  ResponseEntity<User> greetingMessageWithRepo(@RequestBody User user) {
-            return greetingService.greetingMessageWithRepo(user);
+    public ResponseEntity<User> greetingMessageWithRepo(@RequestBody User user) {
+        return greetingService.greetingMessageWithRepo(user);
     }
 
     @GetMapping("/greetingById/{id}")
-        User getById(@PathVariable Long id) {
-            return greetingService.getById(id);
-        }
+    User getById(@PathVariable Long id) {
+        return greetingService.getById(id);
+    }
 
-        @GetMapping("/greeting/all")
-        List<User> getAllUsers() {
-            return greetingService.getAllUsers();
-            }
-        }
+    @GetMapping("/greeting/all")
+    List<User> getAllUsers() {
+        return greetingService.getAllUsers();
+    }
+
+
+    @PutMapping("/greeting/{id}")
+    public User updateOrCreate(@RequestBody User user, @PathVariable Long id) {
+        return greetingService.updateOrCreate(user, id);
+    }
+}
+
 
 
 

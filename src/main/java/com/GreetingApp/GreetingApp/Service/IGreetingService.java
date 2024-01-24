@@ -14,7 +14,10 @@ public interface IGreetingService {
     ResponseEntity<User> greetingMessageWithRepo(@RequestBody User user);
 
     User getById(@PathVariable Long id);
+
     List<User> getAllUsers();
+
+    User updateOrCreate(@RequestBody User newItem, @PathVariable Long id);
 
 
 }

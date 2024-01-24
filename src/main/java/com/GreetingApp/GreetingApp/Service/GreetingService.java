@@ -51,5 +51,19 @@ public class GreetingService implements IGreetingService {
         return greetingRepository.findAll();
     }
 
+    @Override
+    public User updateOrCreate(User newItem, Long id) {
+        return greetingRepository.findById(id)
+                .map(user -> {
+                    user.setFirstName(newItem.getFirstName());
+                    user.setLastName(newItem.getLastName());
+                    return greetingRepository.save(user);
+                })
+                .orElseGet(() -> {
+                    newItem.setId(id);
+                    return greetingRepository.save(newItem);
+                });
+    }
+
 
 }
